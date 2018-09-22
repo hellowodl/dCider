@@ -1,0 +1,86 @@
+{
+  "Version": 1,
+  "UUID": "bcd8e2d1-b500-4e97-b212-00856c19eccd",
+  "Name": "dCider Dao",
+  "Properties": {
+    "description": "Liquor democracy DAO with delegation functionality",
+    "language": "en"
+  },
+  "PropertiesSchemaFile": "properties_schema.json",
+  "DHTConfig": {
+    "HashType": "sha2-256"
+  },
+  "Zomes": [
+    {
+      "Name": "dCider",
+      "Description": "Liquor democracy",
+      "RibosomeType": "js",
+      "CodeFile": "dcider.js",
+      "Entries": [
+        {
+          "Name": "Proposal",
+          "Required": true,
+          "DataFormat": "json",
+          "Sharing": "public",
+          "SchemaFile": "Proposal.json"
+        },
+        {
+          "Name": "Vote",
+          "Required": true,
+          "DataFormat": "links",
+          "Sharing": "public"
+        },
+        {
+          "Name": "VoteMirror",
+          "Required": true,
+          "DataFormat": "links",
+          "Sharing": "public"
+        },
+        {
+          "Name": "Delegate",
+          "Required": true,
+          "DataFormat": "links",
+          "Sharing": "public"
+        },
+        {
+          "Name": "DelegateMirror",
+          "Required": true,
+          "DataFormat": "links",
+          "Sharing": "public"
+        }
+      ],
+      "Functions": [
+        {
+          "Name": "ProposalCreate",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "ProposalRead",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "ProposalUpdate",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "delegate",
+          "CallingType": "string",
+          "Exposure": "public"
+        },
+        {
+          "Name": "withdraw",
+          "CallingType": "string",
+          "Exposure": "public"
+        },
+        {
+          "Name": "vote",
+          "CallingType": "json",
+          "Exposure": "public"
+        }
+      ]
+    }
+  ]
+}

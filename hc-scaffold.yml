@@ -1,0 +1,313 @@
+{
+  # This is a holochain scaffold yaml definition. http://ceptr.org/projects/holochain
+
+  # DNA File Version
+  # Version indicator for changes to DNA
+  "Version": "0.0.1",
+  "Generator": "hc-scaffold:0.1.0+e8a394b",
+
+  # Application DNA
+  # The DNA specifies the entry structure and functions and configuration of your application
+  "DNA": {
+
+    # DNA File Version
+    # Version indicator for changes to DNA
+    "Version": 1,
+
+    # DNA Unique ID
+    # This ID differentiates your app from others. For example, to tell one Slack team from another which same code.
+    "UUID": "bcd8e2d1-b500-4e97-b212-00856c19eccd",
+
+    # Application Name
+    # What would you like to call your holochain app?
+    "Name": "dCider Dao",
+
+    # Properties
+    # Properties that you want available across all Zomes.
+    "Properties": {
+
+      # Application Description
+      # Briefly describe your holochain app.
+      "description": "Liquor democracy DAO with delegation functionality",
+
+      # Language
+      # The base (human) language of this holochain app.
+      "language": "en"
+    },
+
+    # Properties Schema File
+    # Describes the entries in the Properties section of your dna file.
+    "PropertiesSchemaFile": "properties_schema.json",
+
+    # DHT Settings
+    # Configure the properties of your Distributed Hash Table (e.g. hash algorithm, neighborhood size, etc.).
+    "DHTConfig": {
+      "HashType": "sha2-256"
+    },
+
+    # Zomes
+    # List the Zomes your application will support.
+    "Zomes": [
+      {
+
+        # Zome Name
+        # The name of this code module.
+        "Name": "dCider",
+
+        # Zome Description
+        # What is the purpose of this module?
+        "Description": "Liquor democracy",
+
+        # Ribosome Type
+        # What scripting language will you code in?
+        "RibosomeType": "js",
+
+        # Code File
+        # Points to the main script file for this Zome.
+        "CodeFile": "dcider.js",
+
+        # Zome Entries
+        # Data stored and tracked by your Zome.
+        "Entries": [
+          {
+            "Name": "Proposal", # The name of this entry.
+            "Required": true, # Is this entry required?
+            "DataFormat": "json", # What type of data should this entry store?
+            "Sharing": "public", # Should this entry be publicly accessible?
+            "Schema": "{\n  \"definitions\": {},\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"$id\": \"http://example.com/root.json\",\n  \"type\": \"object\",\n  \"title\": \"The Root Schema\",\n  \"required\": [\n    \"name\",\n    \"description\",\n    \"options\"\n  ],\n  \"properties\": {\n    \"name\": {\n      \"$id\": \"#/properties/name\",\n      \"type\": \"string\",\n      \"title\": \"The Name Schema\",\n      \"default\": \"\",\n      \"examples\": [\n        \"lets get drunk\"\n      ],\n      \"pattern\": \"^(.*)$\"\n    },\n    \"description\": {\n      \"$id\": \"#/properties/description\",\n      \"type\": \"string\",\n      \"title\": \"The Description Schema\",\n      \"default\": \"\",\n      \"examples\": [\n        \"great proposal\"\n      ],\n      \"pattern\": \"^(.*)$\"\n    },\n    \"options\": {\n      \"$id\": \"#/properties/options\",\n      \"type\": \"array\",\n      \"title\": \"The Options Schema\",\n      \"items\": {\n        \"$id\": \"#/properties/options/items\",\n        \"type\": \"string\",\n        \"title\": \"The Items Schema\",\n        \"default\": \"\",\n        \"examples\": [\n          \"hella nah\",\n          \"hella yeah\"\n        ],\n        \"pattern\": \"^(.*)$\"\n      }\n    }\n  }\n}",
+            "_": "cru"
+          },
+          {
+            "Name": "Vote", # The name of this entry.
+            "Required": true, # Is this entry required?
+            "DataFormat": "links", # What type of data should this entry store?
+            "Sharing": "public", # Should this entry be publicly accessible?
+            "_": "-"
+          },
+          {
+            "Name": "VoteMirror", # The name of this entry.
+            "Required": true, # Is this entry required?
+            "DataFormat": "links", # What type of data should this entry store?
+            "Sharing": "public", # Should this entry be publicly accessible?
+            "_": "-"
+          },
+          {
+            "Name": "Delegate", # The name of this entry.
+            "Required": true, # Is this entry required?
+            "DataFormat": "links", # What type of data should this entry store?
+            "Sharing": "public", # Should this entry be publicly accessible?
+            "_": "-"
+          },
+          {
+            "Name": "DelegateMirror", # The name of this entry.
+            "Required": true, # Is this entry required?
+            "DataFormat": "links", # What type of data should this entry store?
+            "Sharing": "public", # Should this entry be publicly accessible?
+            "_": "-"
+          }
+        ],
+
+        # Zome Functions
+        # Functions which can be called in your Zome's API.
+        "Functions": [
+          {
+            "Name": "ProposalCreate", # The name of this function.
+            "CallingType": "json", # Data format for parameters passed to this function.
+            "Exposure": "public", # Level to which is this function exposed.
+            "_": "c:Proposal"
+          },
+          {
+            "Name": "ProposalRead", # The name of this function.
+            "CallingType": "json", # Data format for parameters passed to this function.
+            "Exposure": "public", # Level to which is this function exposed.
+            "_": "r:Proposal"
+          },
+          {
+            "Name": "ProposalUpdate", # The name of this function.
+            "CallingType": "json", # Data format for parameters passed to this function.
+            "Exposure": "public", # Level to which is this function exposed.
+            "_": "u:Proposal"
+          },
+          {
+            "Name": "delegate", # The name of this function.
+            "CallingType": "string", # Data format for parameters passed to this function.
+            "Exposure": "public", # Level to which is this function exposed.
+          },
+          {
+            "Name": "withdraw", # The name of this function.
+            "CallingType": "string", # Data format for parameters passed to this function.
+            "Exposure": "public", # Level to which is this function exposed.
+          },
+          {
+            "Name": "vote", # The name of this function.
+            "CallingType": "json", # Data format for parameters passed to this function.
+            "Exposure": "public", # Level to which is this function exposed.
+          }
+        ],
+
+        # Zome Source Code
+        # The logic that will control Zome behavior
+        "Code": "'use strict';\n\n// -----------------------------------------------------------------\n//  This stub Zome code file was auto-generated by hc-scaffold\n// -----------------------------------------------------------------\n\n// -----------------------------------------------------------------\n//  Exposed functions with custom logic https://developer.holochain.org/API_reference\n// -----------------------------------------------------------------\n\nfunction ProposalCreate (ProposalEntry) {\n  var ProposalHash = commit(\"Proposal\", ProposalEntry);\n  return ProposalHash;\n}\n\nfunction ProposalRead (ProposalHash) {\n  var Proposal = get(ProposalHash);\n  return Proposal;\n}\n\nfunction ProposalUpdate (ProposalHash) {\n  var sampleValue={\"name\":\"lets get drunk\",\"description\":\"great proposal\",\"options\":[\"hella nah\"],\"extraField\":true};\n  var ProposalOutHash = update(\"Proposal\", sampleValue, ProposalHash);\n  return ProposalOutHash;\n}\n\nfunction delegate (text) {\n  // your custom code here\n  return \"a string\";\n}\n\nfunction withdraw (text) {\n  // your custom code here\n  return \"a string\";\n}\n\nfunction vote (params) {\n  // your custom code here\n  return {};\n}\n\n\n// -----------------------------------------------------------------\n//  The Genesis Function https://developer.holochain.org/genesis\n// -----------------------------------------------------------------\n\n/**\n * Called only when your source chain is generated\n * @return {boolean} success\n */\nfunction genesis () {\n  return true;\n}\n\n// -----------------------------------------------------------------\n//  Validation functions for every change to the local chain or DHT\n// -----------------------------------------------------------------\n\n/**\n * Called to validate any changes to the local chain or DHT\n * @param {string} entryName - the type of entry\n * @param {*} entry - the entry data to be set\n * @param {object} header - header for the entry containing properties EntryLink, Time, and Type\n * @param {*} pkg - the extra data provided by the validate[X]Pkg methods\n * @param {object} sources - an array of strings containing the keys of any authors of this entry\n * @return {boolean} is valid?\n */\nfunction validateCommit (entryName, entry, header, pkg, sources) {\n  switch (entryName) {\n    case \"Proposal\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"Vote\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"VoteMirror\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"Delegate\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"DelegateMirror\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    default:\n      // invalid entry name\n      return false;\n  }\n}\n\n/**\n * Called to validate any changes to the local chain or DHT\n * @param {string} entryName - the type of entry\n * @param {*} entry - the entry data to be set\n * @param {object} header - header for the entry containing properties EntryLink, Time, and Type\n * @param {*} pkg - the extra data provided by the validate[X]Pkg methods\n * @param {object} sources - an array of strings containing the keys of any authors of this entry\n * @return {boolean} is valid?\n */\nfunction validatePut (entryName, entry, header, pkg, sources) {\n  switch (entryName) {\n    case \"Proposal\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"Vote\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"VoteMirror\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"Delegate\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"DelegateMirror\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    default:\n      // invalid entry name\n      return false;\n  }\n}\n\n/**\n * Called to validate any changes to the local chain or DHT\n * @param {string} entryName - the type of entry\n * @param {*} entry - the entry data to be set\n * @param {object} header - header for the entry containing properties EntryLink, Time, and Type\n * @param {string} replaces - the hash for the entry being updated\n * @param {*} pkg - the extra data provided by the validate[X]Pkg methods\n * @param {object} sources - an array of strings containing the keys of any authors of this entry\n * @return {boolean} is valid?\n */\nfunction validateMod (entryName, entry, header, replaces, pkg, sources) {\n  switch (entryName) {\n    case \"Proposal\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"Vote\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"VoteMirror\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"Delegate\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"DelegateMirror\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    default:\n      // invalid entry name\n      return false;\n  }\n}\n\n/**\n * Called to validate any changes to the local chain or DHT\n * @param {string} entryName - the type of entry\n * @param {string} hash - the hash of the entry to remove\n * @param {*} pkg - the extra data provided by the validate[X]Pkg methods\n * @param {object} sources - an array of strings containing the keys of any authors of this entry\n * @return {boolean} is valid?\n */\nfunction validateDel (entryName, hash, pkg, sources) {\n  switch (entryName) {\n    case \"Proposal\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"Vote\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"VoteMirror\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"Delegate\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"DelegateMirror\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    default:\n      // invalid entry name\n      return false;\n  }\n}\n\n/**\n * Called to validate any changes to the local chain or DHT\n * @param {string} entryName - the type of entry\n * @param {string} baseHash - the hash of the base entry being linked\n * @param {?} links - ?\n * @param {*} pkg - the extra data provided by the validate[X]Pkg methods\n * @param {object} sources - an array of strings containing the keys of any authors of this entry\n * @return {boolean} is valid?\n */\nfunction validateLink (entryName, baseHash, links, pkg, sources) {\n  switch (entryName) {\n    case \"Proposal\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"Vote\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"VoteMirror\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"Delegate\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    case \"DelegateMirror\":\n      // be sure to consider many edge cases for validating\n      // do not just flip this to true without considering what that means\n      // the action will ONLY be successfull if this returns true, so watch out!\n      return false;\n    default:\n      // invalid entry name\n      return false;\n  }\n}\n\n/**\n * Called to get the data needed to validate\n * @param {string} entryName - the name of entry to validate\n * @return {*} the data required for validation\n */\nfunction validatePutPkg (entryName) {\n  return null;\n}\n\n/**\n * Called to get the data needed to validate\n * @param {string} entryName - the name of entry to validate\n * @return {*} the data required for validation\n */\nfunction validateModPkg (entryName) {\n  return null;\n}\n\n/**\n * Called to get the data needed to validate\n * @param {string} entryName - the name of entry to validate\n * @return {*} the data required for validation\n */\nfunction validateDelPkg (entryName) {\n  return null;\n}\n\n/**\n * Called to get the data needed to validate\n * @param {string} entryName - the name of entry to validate\n * @return {*} the data required for validation\n */\nfunction validateLinkPkg (entryName) {\n  return null;\n}"
+      }
+    ]
+  },
+
+  # TestSets
+  # Auto-Generated test sets for hcdev package
+  "TestSets": [
+    {
+
+      # Name
+      # Name of the Test Set
+      "Name": "dCider",
+      "TestSet": {
+        "Tests": [
+          {
+
+            # Convey
+            # Description of this test
+            "Convey": "auto-generated test for ProposalCreate",
+
+            # Zome
+            # The zome this test is related to
+            "Zome": "dCider",
+
+            # Function Name
+            # The function to test
+            "FnName": "ProposalCreate",
+
+            # Input
+            # Input sent to the function
+            "Input": {
+              "name": "lets get drunk",
+              "description": "great proposal",
+              "options": [
+                "hella nah"
+              ]
+            },
+
+            # Output
+            # Output from the function to validate
+            "Output": "%h%"
+          },
+          {
+
+            # Convey
+            # Description of this test
+            "Convey": "auto-generated test for ProposalRead",
+
+            # Zome
+            # The zome this test is related to
+            "Zome": "dCider",
+
+            # Function Name
+            # The function to test
+            "FnName": "ProposalRead",
+
+            # Input
+            # Input sent to the function
+            "Input": "%h%",
+
+            # Output
+            # Output from the function to validate
+            "Output": {
+              "name": "lets get drunk",
+              "description": "great proposal",
+              "options": [
+                "hella nah"
+              ]
+            }
+          },
+          {
+
+            # Convey
+            # Description of this test
+            "Convey": "auto-generated test for ProposalUpdate",
+
+            # Zome
+            # The zome this test is related to
+            "Zome": "dCider",
+
+            # Function Name
+            # The function to test
+            "FnName": "ProposalUpdate",
+
+            # Input
+            # Input sent to the function
+            "Input": "%h%",
+
+            # Output
+            # Output from the function to validate
+            "Output": "%h%"
+          },
+          {
+
+            # Convey
+            # Description of this test
+            "Convey": "auto-generated test for delegate",
+
+            # Zome
+            # The zome this test is related to
+            "Zome": "dCider",
+
+            # Function Name
+            # The function to test
+            "FnName": "delegate",
+
+            # Input
+            # Input sent to the function
+            "Input": "",
+
+            # Output
+            # Output from the function to validate
+            "Output": "a string"
+          },
+          {
+
+            # Convey
+            # Description of this test
+            "Convey": "auto-generated test for withdraw",
+
+            # Zome
+            # The zome this test is related to
+            "Zome": "dCider",
+
+            # Function Name
+            # The function to test
+            "FnName": "withdraw",
+
+            # Input
+            # Input sent to the function
+            "Input": "",
+
+            # Output
+            # Output from the function to validate
+            "Output": "a string"
+          },
+          {
+
+            # Convey
+            # Description of this test
+            "Convey": "auto-generated test for vote",
+
+            # Zome
+            # The zome this test is related to
+            "Zome": "dCider",
+
+            # Function Name
+            # The function to test
+            "FnName": "vote",
+
+            # Input
+            # Input sent to the function
+            "Input": "",
+
+            # Output
+            # Output from the function to validate
+            "Output": {}
+          }
+        ]
+      }
+    }
+  ]
+}

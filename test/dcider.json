@@ -1,0 +1,58 @@
+{
+  "Tests": [
+    {
+      "Convey": "auto-generated test for ProposalCreate",
+      "Zome": "dCider",
+      "FnName": "ProposalCreate",
+      "Input": {
+        "name": "lets get drunk",
+        "description": "great proposal",
+        "options": [
+          "hella nah"
+        ]
+      },
+      "Output": "%h%"
+    },
+    {
+      "Convey": "auto-generated test for ProposalRead",
+      "Zome": "dCider",
+      "FnName": "ProposalRead",
+      "Input": "%h%",
+      "Output": {
+        "name": "lets get drunk",
+        "description": "great proposal",
+        "options": [
+          "hella nah"
+        ]
+      }
+    },
+    {
+      "Convey": "auto-generated test for ProposalUpdate",
+      "Zome": "dCider",
+      "FnName": "ProposalUpdate",
+      "Input": "%h%",
+      "Output": "%h%"
+    },
+    {
+      "Convey": "auto-generated test for delegate",
+      "Zome": "dCider",
+      "FnName": "delegate",
+      "Input": "",
+      "Output": "a string"
+    },
+    {
+      "Convey": "auto-generated test for withdraw",
+      "Zome": "dCider",
+      "FnName": "withdraw",
+      "Input": "",
+      "Output": "a string"
+    },
+    {
+      "Convey": "auto-generated test for vote",
+      "Zome": "dCider",
+      "FnName": "vote",
+      "Input": "",
+      "Output": {}
+    }
+  ]
+}

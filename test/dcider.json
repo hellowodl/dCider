@@ -17,7 +17,7 @@
       "Convey": "auto-generated test for ProposalRead",
       "Zome": "dCider",
       "FnName": "ProposalRead",
-      "Input": "%h%",
+      "Input": {"hash":"%h%"},
       "Output": {
         "name": "lets get drunk",
         "description": "great proposal",
@@ -32,20 +32,6 @@
       "FnName": "ProposalUpdate",
       "Input": "%h%",
       "Output": "%h%"
-    },
-    {
-      "Convey": "auto-generated test for delegate",
-      "Zome": "dCider",
-      "FnName": "delegate",
-      "Input": "",
-      "Output": "a string"
-    },
-    {
-      "Convey": "auto-generated test for withdraw",
-      "Zome": "dCider",
-      "FnName": "withdraw",
-      "Input": "",
-      "Output": "a string"
     },
     {
       "Convey": "auto-generated test for vote",

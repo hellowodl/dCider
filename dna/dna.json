@@ -67,12 +67,12 @@
         },
         {
           "Name": "delegate",
-          "CallingType": "string",
+          "CallingType": "json",
           "Exposure": "public"
         },
         {
           "Name": "withdraw",
-          "CallingType": "string",
+          "CallingType": "json",
           "Exposure": "public"
         },
         {

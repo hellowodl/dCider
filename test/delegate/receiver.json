@@ -1,0 +1,12 @@
+{
+    "Tests":[
+		{
+		  "Convey": "test for delegate #2",
+		  "Zome": "dCider",
+		  "FnName": "delegate",
+		  "Input": {"hash":"%delegator_key%"},
+		  "Output": {"delegateHash":"%h1%","delegateMirrorHash":"%h%"},
+		  "Time": 5000
+		}
+    ]
+}

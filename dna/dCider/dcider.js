@@ -64,7 +64,7 @@ function countVotes (proposalHash) {
           votes = getLinks(proposalHash, '', { Load: true })
 
     votes.map(function (vote) {
-      return vote.Tag
+      return Number(vote.Tag)
     }).forEach(function (x) {
         res[x] = (res[x] || 0)+1
     })

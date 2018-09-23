@@ -41,6 +41,13 @@
       "Output": {"oldVoteHash":"", "oldVoteMirrorHash": "","voteHash":"%h1%","voteMirrorHash":"%h%"}
     },
     {
+      "Convey": "test for count votes",
+      "Zome": "dCider",
+      "FnName": "countVotes",
+      "Input": {"hash":"%h2%"},
+      "Output": {"1":1}
+    },
+    {
       "Convey": "test for removeVote",
       "Zome": "dCider",
       "FnName": "removeVote",

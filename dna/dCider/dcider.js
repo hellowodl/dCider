@@ -106,9 +106,9 @@ function vote (params) {
   return { oldVoteHash: removeOldReturn.oldVoteHash, oldVoteMirrorHash: removeOldReturn.oldVoteMirrorHash, voteHash: voteHash, voteMirrorHash: voteMirrorHash };
 }
 
-function countVotes (proposalHash) {
-    const res = {},
-          votes = getLinks(proposalHash, '', { Load: true })
+function countVotes (params) {
+    var res = {},
+        votes = getLinks(params.hash, '', { Load: true });
 
     votes.map(function (vote) {
       return Number(vote.Tag)

@@ -82,7 +82,12 @@
         },
         {
           "Name": "countVotes",
-          "CallingType": "string",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "removeVote",
+          "CallingType": "json",
           "Exposure": "public"
         }
       ]

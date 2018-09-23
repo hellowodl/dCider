@@ -34,11 +34,32 @@
       "Output": "%h%"
     },
     {
-      "Convey": "auto-generated test for vote",
+      "Convey": "test for vote",
       "Zome": "dCider",
       "FnName": "vote",
-      "Input": "",
-      "Output": {}
+      "Input": {"hash":"%h%","choice":1},
+      "Output": {"oldVoteHash":"", "oldVoteMirrorHash": "","voteHash":"%h1%","voteMirrorHash":"%h%"}
+    },
+    {
+      "Convey": "test for removeVote",
+      "Zome": "dCider",
+      "FnName": "removeVote",
+      "Input": {"hash":"%h2%"},
+      "Output": {"oldVoteHash":"%h1%", "oldVoteMirrorHash": "%h%"}
+    },
+    {
+      "Convey": "test for vote after removing old vote",
+      "Zome": "dCider",
+      "FnName": "vote",
+      "Input": {"hash":"%h2%","choice":2},
+      "Output": {"oldVoteHash":"", "oldVoteMirrorHash": "","voteHash":"%h1%","voteMirrorHash":"%h%"}
+    },
+    {
+      "Convey": "test for vote with removing old vote",
+      "Zome": "dCider",
+      "FnName": "vote",
+      "Input": {"hash":"%h4%","choice":3},
+      "Output": {"oldVoteHash":"%h3%", "oldVoteMirrorHash": "%h2%","voteHash":"%h1%","voteMirrorHash":"%h%"}
     }
   ]
 }

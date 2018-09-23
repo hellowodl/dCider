@@ -54,9 +54,56 @@ function withdraw (params) {
   return resultWithdraw;
 }
 
+function removeVote(params) {
+  var proposalHash = params.hash;
+  var oldVoteMirrorHash = "";
+  var oldVoteHash = "";
+
+  // remove old vote if there:
+  var votes = getLinks( App.Key.Hash , "" ,{ Load: true });
+  votes = votes.filter( function(x) { return x.Hash === proposalHash });
+  
+  // if we find a vote for the same proposal, remove it first
+  if (votes.length > 0) {
+    voteMirrors = getLinks( proposalHash , "", { Load: true });
+    voteMirrors = voteMirrors.filter( function(x) { return x.Hash === App.Key.Hash });
+    // remove the back link
+    if (voteMirrors > 0) {
+      oldVoteMirrorHash = commit("VoteMirror", { Links: [ { 
+        Base: proposalHash, 
+        Link: App.Key.Hash, 
+        Tag: voteMirrors[0].Tag , 
+        LinkAction: HC.LinkAction.Del 
+     } ]});
+    }
+    oldVoteHash = commit("Vote", { Links: [ { 
+      Base: App.Key.Hash, 
+      Link: proposalHash, 
+      Tag: votes[0].Tag , 
+      LinkAction: HC.LinkAction.Del } ]});
+  }
+  
+  return { oldVoteHash: oldVoteHash, oldVoteMirrorHash: oldVoteMirrorHash };
+}
+
 function vote (params) {
-  // your custom code here
-  return {};
+  var proposalHash = params.hash;
+  var choiceNum = params.choice;
+  var oldVoteMirrorHash = "";
+  var oldVoteHash = "";
+
+  // remove old vote if there:
+  var removeOldReturn = removeVote( params );
+
+  // create new vote:
+  var voteHash = commit("Vote", { Links: [ { Base: App.Key.Hash, Link: proposalHash, Tag: choiceNum.toString() } ]});
+  var voteMirrorHash = commit("VoteMirror", { Links: [ { 
+    Base: proposalHash, 
+    Link: App.Key.Hash, 
+    Tag: choiceNum.toString() 
+  } ]});
+  
+  return { oldVoteHash: removeOldReturn.oldVoteHash, oldVoteMirrorHash: removeOldReturn.oldVoteMirrorHash, voteHash: voteHash, voteMirrorHash: voteMirrorHash };
 }
 
 function countVotes (proposalHash) {

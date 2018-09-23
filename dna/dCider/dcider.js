@@ -33,21 +33,20 @@ function delegate (params) {
   return { "delegateHash" : delegateHash , "delegateMirrorHash" : delegateMirrorHash };
 }
 
+// don't bother
 function withdraw (params) {
 	console.log(App.Key.Hash);
   var resultWithdraw = {"delegateHash":"","delegateMirrorHash":""};
-  var delegations = getLinks( App.Key.Hash , "Delegate" );
-  
-  console.log(JSON.stringify(delegations[0]));
-  
+  var delegations = getLinks( App.Key.Hash , "Delegate", { Load: true } );
+
+  console.log(JSON.stringify(delegations));
+
   if ( delegations.length == 1 ) {
     delegatee = delegations[0].Hash;
-	
-	console.log("get links for " + delegatee);
-	
+
 	delegationMirrors = getLinks( delegatee , "DelegateMirror" ).filter( function(x) { return x.Hash == App.Key.Hash } );
-	console.log("mirrors " + delegationMirrors)
-	resultWithdraw.delegateHash = remove( delegatee );
+
+	resultWithdraw.delegateHash = remove( delegatee, 'withdrew delegation' );
 	if ( delegationMirrors.length == 1 ) {
 		resultWithdraw.delegateMirrorHash = remove( delegationMirrors[0] );
 	}
@@ -58,6 +57,19 @@ function withdraw (params) {
 function vote (params) {
   // your custom code here
   return {};
+}
+
+function countVotes (proposalHash) {
+    const res = {},
+          votes = getLinks(proposalHash, '', { Load: true })
+
+    votes.map(function (vote) {
+      return vote.Tag
+    }).forEach(function (x) {
+        res[x] = (res[x] || 0)+1
+    })
+
+    return res
 }
 
 

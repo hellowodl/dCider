@@ -52,21 +52,35 @@
       "Zome": "dCider",
       "FnName": "removeVote",
       "Input": {"hash":"%h2%"},
-      "Output": {"oldVoteHash":"%h1%", "oldVoteMirrorHash": "%h%"}
+      "Output": {"oldVoteHash":"%h%", "oldVoteMirrorHash": "%h1%"}
     },
     {
       "Convey": "test for vote after removing old vote",
       "Zome": "dCider",
       "FnName": "vote",
-      "Input": {"hash":"%h2%","choice":2},
+      "Input": {"hash":"%h4%","choice":2},
       "Output": {"oldVoteHash":"", "oldVoteMirrorHash": "","voteHash":"%h1%","voteMirrorHash":"%h%"}
+    },
+    {
+      "Convey": "test for count votes after remove and add new vote",
+      "Zome": "dCider",
+      "FnName": "countVotes",
+      "Input": {"hash":"%h6%"},
+      "Output": {"2":1}
     },
     {
       "Convey": "test for vote with removing old vote",
       "Zome": "dCider",
       "FnName": "vote",
-      "Input": {"hash":"%h4%","choice":3},
-      "Output": {"oldVoteHash":"%h3%", "oldVoteMirrorHash": "%h2%","voteHash":"%h1%","voteMirrorHash":"%h%"}
+      "Input": {"hash":"%h6%","choice":3},
+      "Output": {"oldVoteHash":"%h2%", "oldVoteMirrorHash": "%h3%","voteHash":"%h1%","voteMirrorHash":"%h%"}
+    },
+    {
+      "Convey": "test for count votes after remove and add vote in 1 function",
+      "Zome": "dCider",
+      "FnName": "countVotes",
+      "Input": {"hash":"%h10%"},
+      "Output": {"3":1}
     }
   ]
 }

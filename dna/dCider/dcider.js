@@ -58,7 +58,7 @@ function removeVote(params) {
   var proposalHash = params.hash;
   var oldVoteMirrorHash = "";
   var oldVoteHash = "";
-
+  console.log("proposalHash: " + proposalHash);
   // remove old vote if there:
   var votes = getLinks( App.Key.Hash , "" ,{ Load: true });
   votes = votes.filter( function(x) { return x.Hash === proposalHash });
@@ -68,7 +68,7 @@ function removeVote(params) {
     voteMirrors = getLinks( proposalHash , "", { Load: true });
     voteMirrors = voteMirrors.filter( function(x) { return x.Hash === App.Key.Hash });
     // remove the back link
-    if (voteMirrors > 0) {
+    if (voteMirrors.length > 0) {
       oldVoteMirrorHash = commit("VoteMirror", { Links: [ { 
         Base: proposalHash, 
         Link: App.Key.Hash, 

@@ -10,7 +10,15 @@
 
 function ProposalCreate (ProposalEntry) {
   var ProposalHash = commit("Proposal", ProposalEntry);
+  var proposalsAnchor = makeHash("Anchor","proposals");
+  var proposalAnchorHash = commit("AnchorLink", { Links: [ { Base: proposalsAnchor, Link: ProposalHash, Tag: "anchor" } ]});
   return ProposalHash;
+}
+
+function GetProposals( params ) {
+  var proposalsAnchor = makeHash("Anchor","proposals");
+  var proposals = getLinks( proposalsAnchor , "anchor" , { Load: true } )
+  return proposals
 }
 
 function ProposalRead (options) {
@@ -96,6 +104,16 @@ function vote (params) {
   var oldVoteMirrorHash = "";
   var oldVoteHash = "";
 
+  // get proposal hash if needed
+  if (proposalHash == "") {
+    var proposalName = params.name;
+    var proposals = GetProposals({}).filter(function(proposal){return proposal.Entry.name == proposalName});
+    if (proposals.length == 1) {
+      proposalHash = proposals[0].Hash;
+      params.hash = proposalHash
+    }
+  }
+
   // remove old vote if there:
   var removeOldReturn = removeVote( params );
 
@@ -167,6 +185,7 @@ function countVotes (params) {
  * @return {boolean} success
  */
 function genesis () {
+  var ProposalAnchorHash = commit("Anchor", "proposals");
   return true;
 }
 

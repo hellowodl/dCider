@@ -12,27 +12,27 @@
           "testing"
         ]
       },
-      "Output": "%h%"
+      "Output": "%h1%"
     },
     {
       "Convey": "test for vote",
       "Zome": "dCider",
       "FnName": "vote",
-      "Input": {"hash":"%h%","choice":1},
+      "Input": {"hash":"%h1%","choice":1},
       "Output": {"oldVoteHash":"", "oldVoteMirrorHash": "","voteHash":"%h1%","voteMirrorHash":"%h%"}
     },
     {
       "Convey": "test for count votes",
       "Zome": "dCider",
       "FnName": "countVotes",
-      "Input": {"hash":"%h2%"},
+      "Input": {"hash":"%h3%"},
       "Output": {"1":1}
     },
     {
       "Convey": "test for count votes after delegate",
       "Zome": "dCider",
       "FnName": "countVotes",
-      "Input": {"hash":"%h2%"},
+      "Input": {"hash":"%h3%"},
       "Output": {"1":2},
       "Time": 2000
     },
@@ -40,9 +40,25 @@
       "Convey": "test for count votes after withdraw delegate",
       "Zome": "dCider",
       "FnName": "countVotes",
-      "Input": {"hash":"%h2%"},
+      "Input": {"hash":"%h3%"},
       "Output": {"1":1},
       "Time": 4000
+    },
+    {
+      "Convey": "test for count votes after re-delegate",
+      "Zome": "dCider",
+      "FnName": "countVotes",
+      "Input": {"hash":"%h3%"},
+      "Output": {"1":2},
+      "Time": 6000
+    },
+    {
+      "Convey": "test for count votes after vote",
+      "Zome": "dCider",
+      "FnName": "countVotes",
+      "Input": {"hash":"%h3%"},
+      "Output": {"1":1,"2":1},
+      "Time": 8000
     }
     ]
 }

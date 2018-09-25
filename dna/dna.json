@@ -25,6 +25,18 @@
           "SchemaFile": "Proposal.json"
         },
         {
+          "Name": "Anchor",
+          "Required": true,
+          "DataFormat": "string",
+          "Sharing": "public"
+        },
+        {
+          "Name": "AnchorLink",
+          "Required": true,
+          "DataFormat": "links",
+          "Sharing": "public"
+        },
+        {
           "Name": "Vote",
           "Required": true,
           "DataFormat": "links",

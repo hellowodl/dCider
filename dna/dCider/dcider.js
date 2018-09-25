@@ -25,31 +25,35 @@ function ProposalUpdate (ProposalHash) {
 }
 
 function delegate (params) {
-	console.log(App.Key.Hash);
-	console.log(params.hash);
+  // remove old delegation if relevant
+  var removeOldDelegation = withdraw (params);
+  
+  // make new delegation
   var delegateHash = commit("Delegate", { Links: [ { Base: App.Key.Hash, Link: params.hash, Tag: "Delegate" } ]});
   var delegateMirrorHash = commit("DelegateMirror", { Links: [ { Base: params.hash, Link: App.Key.Hash, Tag: "DelegateMirror" } ]});
-  // your custom code here
-  return { "delegateHash" : delegateHash , "delegateMirrorHash" : delegateMirrorHash };
+  
+  // return hashes
+  return { 
+    "oldDelegateHash": removeOldDelegation.oldDelegateHash, 
+    "oldDelegateMirrorHash": removeOldDelegation.oldDelegateMirrorHash, 
+    "delegateHash" : delegateHash , 
+    "delegateMirrorHash" : delegateMirrorHash };
 }
 
 // don't bother
 function withdraw (params) {
-	console.log(App.Key.Hash);
-  var resultWithdraw = {"delegateHash":"","delegateMirrorHash":""};
+  var resultWithdraw = {"oldDelegateHash":"","oldDelegateMirrorHash":""};
   var delegations = getLinks( App.Key.Hash , "Delegate", { Load: true } );
-
-  console.log(JSON.stringify(delegations));
 
   if ( delegations.length == 1 ) {
     delegatee = delegations[0].Hash;
 
-	delegationMirrors = getLinks( delegatee , "DelegateMirror" ).filter( function(x) { return x.Hash == App.Key.Hash } );
+	  delegationMirrors = getLinks( delegatee , "DelegateMirror" ).filter( function(x) { return x.Hash == App.Key.Hash } );
 
-	resultWithdraw.delegateHash = remove( delegatee, 'withdrew delegation' );
-	if ( delegationMirrors.length == 1 ) {
-		resultWithdraw.delegateMirrorHash = remove( delegationMirrors[0] );
-	}
+	  if ( delegationMirrors.length == 1 ) {
+		  resultWithdraw.oldDelegateMirrorHash = commit("DelegateMirror", { Links: [ { Base: delegatee, Link: App.Key.Hash, Tag: "DelegateMirror" , LinkAction: HC.LinkAction.Del } ]});
+	  }
+	  resultWithdraw.oldDelegateHash = commit("Delegate", { Links: [ { Base: App.Key.Hash, Link: delegatee, Tag: "Delegate" , LinkAction: HC.LinkAction.Del } ]});
   }
   return resultWithdraw;
 }
@@ -58,7 +62,7 @@ function removeVote(params) {
   var proposalHash = params.hash;
   var oldVoteMirrorHash = "";
   var oldVoteHash = "";
-  console.log("proposalHash: " + proposalHash);
+
   // remove old vote if there:
   var votes = getLinks( App.Key.Hash , "" ,{ Load: true });
   votes = votes.filter( function(x) { return x.Hash === proposalHash });
@@ -106,6 +110,28 @@ function vote (params) {
   return { oldVoteHash: removeOldReturn.oldVoteHash, oldVoteMirrorHash: removeOldReturn.oldVoteMirrorHash, voteHash: voteHash, voteMirrorHash: voteMirrorHash };
 }
 
+function countDelegatedVotes(params) {
+  var hasVoted = params.hasVoted;
+  var res = params.res;
+  var startNode = params.nodeHash;
+  var choice = params.choice;
+
+  delegations = getLinks( startNode , "DelegateMirror" ).map(function(x){return x.Hash})
+  delegations = delegations.filter( function(delegator) { return hasVoted.indexOf(delegator) < 0 } ) ;
+
+  delegations.forEach( function(delegator) {
+    res[choice] = (res[choice] || 0)+1;
+    res = countDelegatedVotes( {
+        hasVoted: hasVoted,
+        res: res,
+        nodeHash: delegator,
+        choice: choice
+        } )
+  } )
+
+  return res
+}
+
 function countVotes (params) {
     var res = {},
         votes = getLinks(params.hash, '', { Load: true });
@@ -115,6 +141,18 @@ function countVotes (params) {
     }).forEach(function (x) {
         res[x] = (res[x] || 0)+1
     })
+    
+    hasVoted = votes.map(function (vote) {
+      return vote.Hash})
+    
+    votes.forEach(function(vote) {
+      res = countDelegatedVotes( {
+        hasVoted: hasVoted,
+        res: res,
+        nodeHash: vote.Hash,
+        choice: Number(vote.Tag)
+        } ) 
+      } )
 
     return res
 }

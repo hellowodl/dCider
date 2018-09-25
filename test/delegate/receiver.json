@@ -1,12 +1,48 @@
 {
     "Tests":[
-		{
-		  "Convey": "test for delegate #2",
-		  "Zome": "dCider",
-		  "FnName": "delegate",
-		  "Input": {"hash":"%delegator_key%"},
-		  "Output": {"delegateHash":"%h1%","delegateMirrorHash":"%h%"},
-		  "Time": 5000
-		}
+    {
+      "Convey": "test for ProposalCreate",
+      "Zome": "dCider",
+      "FnName": "ProposalCreate",
+      "Input": {
+        "name": "lets get drunk",
+        "description": "great proposal",
+        "options": [
+          "hella nah",
+          "testing"
+        ]
+      },
+      "Output": "%h%"
+    },
+    {
+      "Convey": "test for vote",
+      "Zome": "dCider",
+      "FnName": "vote",
+      "Input": {"hash":"%h%","choice":1},
+      "Output": {"oldVoteHash":"", "oldVoteMirrorHash": "","voteHash":"%h1%","voteMirrorHash":"%h%"}
+    },
+    {
+      "Convey": "test for count votes",
+      "Zome": "dCider",
+      "FnName": "countVotes",
+      "Input": {"hash":"%h2%"},
+      "Output": {"1":1}
+    },
+    {
+      "Convey": "test for count votes after delegate",
+      "Zome": "dCider",
+      "FnName": "countVotes",
+      "Input": {"hash":"%h2%"},
+      "Output": {"1":2},
+      "Time": 2000
+    },
+    {
+      "Convey": "test for count votes after withdraw delegate",
+      "Zome": "dCider",
+      "FnName": "countVotes",
+      "Input": {"hash":"%h2%"},
+      "Output": {"1":1},
+      "Time": 4000
+    }
     ]
 }

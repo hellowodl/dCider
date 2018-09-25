@@ -5,16 +5,16 @@
 		  "Zome": "dCider",
 		  "FnName": "delegate",
 		  "Input": {"hash":"%receiver_key%"},
-		  "Output": {"delegateHash":"%h1%","delegateMirrorHash":"%h%"},
-		  "Time": 2000
+		  "Output": {"oldDelegateHash":"","oldDelegateMirrorHash":"","delegateHash":"%h1%","delegateMirrorHash":"%h%"},
+		  "Time": 1000
 		},
 		{
 			"Convey": "testing withdraw after delegate",
 			"Zome": "dCider",
 			"FnName": "withdraw",
 			"Input": {},
-			"Output": {"delegateHash":"%h1%","delegateMirrorHash":"%h%"},
-		    "Time": 4000
+			"Output": {"oldDelegateHash":"%h%","oldDelegateMirrorHash":"%h1%"},
+		    "Time": 3000
 		}
 
     ]

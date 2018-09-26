@@ -1,4 +1,5 @@
 {
     "GossipInterval":100,
-    "Duration":10
+    "Duration":12,
+    "Clone":[{"Role":"delegatorLevel2","Number":5}]
 }

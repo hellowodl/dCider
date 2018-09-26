@@ -67,6 +67,7 @@ function withdraw (params) {
 }
 
 function removeVote(params) {
+  params = getProposalHash (params); // get proposal hash if needed
   var proposalHash = params.hash;
   var oldVoteMirrorHash = "";
   var oldVoteHash = "";
@@ -98,21 +99,23 @@ function removeVote(params) {
   return { oldVoteHash: oldVoteHash, oldVoteMirrorHash: oldVoteMirrorHash };
 }
 
+function getProposalHash (params) {
+  if (params.hash == "") {
+    var proposalName = params.name;
+    var proposals = GetProposals({}).filter(function(proposal){return proposal.Entry.name == proposalName});
+    if (proposals.length == 1) {
+      params.hash = proposals[0].Hash;
+    }
+  }
+  return params
+}
+
 function vote (params) {
+  params = getProposalHash (params); // get proposal hash if needed
   var proposalHash = params.hash;
   var choiceNum = params.choice;
   var oldVoteMirrorHash = "";
   var oldVoteHash = "";
-
-  // get proposal hash if needed
-  if (proposalHash == "") {
-    var proposalName = params.name;
-    var proposals = GetProposals({}).filter(function(proposal){return proposal.Entry.name == proposalName});
-    if (proposals.length == 1) {
-      proposalHash = proposals[0].Hash;
-      params.hash = proposalHash
-    }
-  }
 
   // remove old vote if there:
   var removeOldReturn = removeVote( params );

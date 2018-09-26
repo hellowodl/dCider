@@ -53,12 +53,20 @@
       "Time": 6000
     },
     {
-      "Convey": "test for count votes after vote",
+      "Convey": "test for count votes after delegation to delegator",
       "Zome": "dCider",
       "FnName": "countVotes",
       "Input": {"hash":"%h3%"},
-      "Output": {"1":1,"2":1},
+      "Output": {"1":7},
       "Time": 8000
+    },
+    {
+      "Convey": "test for count votes after vote by delegator",
+      "Zome": "dCider",
+      "FnName": "countVotes",
+      "Input": {"hash":"%h3%"},
+      "Output": {"1":1,"2":6},
+      "Time": 10000
     }
     ]
 }

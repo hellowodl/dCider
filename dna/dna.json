@@ -77,6 +77,11 @@
           "CallingType": "json",
           "Exposure": "public"
         },
+        {  
+          "Name": "getProposalHash",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
         {
           "Name": "delegate",
           "CallingType": "json",

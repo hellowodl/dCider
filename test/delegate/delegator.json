@@ -30,7 +30,7 @@
       "FnName": "vote",
       "Input": {"hash":"","name":"lets get drunk","choice":2},
       "Output": {"oldVoteHash":"", "oldVoteMirrorHash": "","voteHash":"%h1%","voteMirrorHash":"%h%"},
-      "Time": 7000
+      "Time": 9000
     }
     ]
 }
